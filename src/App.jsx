@@ -153,6 +153,16 @@ const experiences = [
 ];
 
 
+const getCertificateUrl = (url) => {
+  if (!url) return "";
+
+  // Keep external credential URLs unchanged
+  if (/^https?:\/\//i.test(url)) return url;
+
+  // Automatically add the GitHub Pages base path
+  return `${import.meta.env.BASE_URL}${url.replace(/^\/+/, "")}`;
+};
+
 const certifications = [
   // 1. Google
   {
@@ -1333,7 +1343,7 @@ function Certifications() {
               <div className="certification-actions">
                 {cert.credentialUrl && (
                   <a
-                    href={cert.credentialUrl}
+                    href={getCertificateUrl(cert.credentialUrl)}
                     target="_blank"
                     rel="noreferrer"
                     className="certification-link"
